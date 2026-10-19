@@ -219,6 +219,17 @@
 </section>
 
   </main>
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 2000;">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header bg-success text-white">
+        <strong class="me-auto">Bootstrap Shop</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
+      </div>
+      <div class="toast-body">
+        Спасибо! Ваша заявка успешно отправлена.
+      </div>
+    </div>
+  </div>
     <div
     class="modal fade"
     id="orderModal"
@@ -269,7 +280,7 @@
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Закрыть
             </button>
-            <button type="button" class="btn btn-primary">
+            <button type="button" class="btn btn-primary" id="submitOrderBtn">
             Отправить
             </button>
         </div>
@@ -279,5 +290,26 @@
 
 
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const submitBtn = document.getElementById('submitOrderBtn');
+    const toastEl = document.getElementById('liveToast');
+
+    if (submitBtn && toastEl) {
+      const toast = new bootstrap.Toast(toastEl, { delay: 4000 });
+
+      submitBtn.addEventListener('click', function () {
+        // Закрываем модальное окно
+        const modalEl = document.getElementById('orderModal');
+        const modal = bootstrap.Modal.getInstance(modalEl);
+        if (modal) {
+          modal.hide();
+        }
+        // Показываем уведомление
+        toast.show();
+      });
+    }
+  });
+</script>
 </body>
 </html>
